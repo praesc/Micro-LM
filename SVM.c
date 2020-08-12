@@ -2,9 +2,10 @@
 
 #ifdef SVM
 
-#include "svm.h"
+#include "SVM.h"
 #include <stdio.h>
 #include <stdbool.h>
+#include <math.h>
 
 float *PCA_transform(float *);
 
@@ -63,16 +64,17 @@ void svr_test_dataset()
 #endif
 
 #ifndef REGRESSION
-int svm_classification(float X[])
+int svm_classification(int X[])
 {
     int m;
     if (N_CLASS == 2)
     {
-        float y = bias[0];
+        int y = 0;
         int k;
         for (k = 0; k < N_FEATURE; k++)
         {
-            y += support_vectors[0][k] * X[k];
+            y += support_vectors[0][k] /s_x[k] * (X[k] - u_x[k]);
+            //printf("%f, %f, %f\n", support_vectors[0][k], s_x[k], 10000 * support_vectors[0][k] / s_x[k]);
         }
         if (y < 0)
         {

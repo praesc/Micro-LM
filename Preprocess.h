@@ -5,7 +5,7 @@
 
 #include "PPParams.h"
 
-extern float X_t[N_FEATURE];
-
+extern int X_t[N_FEATURE];
+extern int X_t_int[N_FEATURE];
 #endif
 

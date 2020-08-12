@@ -2,9 +2,10 @@
 
 #ifdef DT
 
-#include "dt.h"
+#include "DT.h"
 #include <stdio.h>
 #include <stdbool.h>
+#include <math.h>
 
 #ifdef DS_TEST
 void decisionTree_test_dataset(bool isRegression)
@@ -23,6 +24,7 @@ void decisionTree_test_dataset(bool isRegression)
     {
         #ifndef REGRESSION
         {
+            //float *X_t = preprocess(X_test[i]);
             predictedLabels[i] = decisionTree_classification(X_test[i]);
             if (predictedLabels[i] == y_test[i])
             {
@@ -50,14 +52,16 @@ void decisionTree_test_dataset(bool isRegression)
 #endif
 
 #ifndef REGRESSION
-int decisionTree_classification(float X[])
+int decisionTree_classification(int X[])
 {
     int currentNode = 0;
+    int fNode = 0;
     while (1)
     {
-        if (feature[currentNode] >= 0)
+        fNode = feature[currentNode];
+        if (fNode >= 0)
         {
-            if (X[feature[currentNode]] <= threshold[currentNode])
+            if ((X[fNode] - u_x[fNode]) * 100 / s_x[fNode] <= threshold[currentNode])
             {
                 currentNode = children_left[currentNode];
             }

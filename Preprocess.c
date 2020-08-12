@@ -1,25 +1,29 @@
-#include "preprocess.h"
+#include "Preprocess.h"
+#include <stdio.h>
 //ccc
 
-float X_t[N_FEATURE];
+int X_t[N_FEATURE];
+int tmp[N_ORIG_FEATURE];
 
 #ifdef STANDARD_SCALING
-normalize_std(float *X, float *s_x, float*u_x){
+int  *normalize_std(int *X, int *s_x, int *u_x){
 int i=0;
 for (i=0; i<N_ORIG_FEATURE; i++) {
-    X[i] = (X[i] - u_x[i]) / s_x[i];
+    tmp[i] = (X[i] - u_x[i]) * 100 / s_x[i];
 }
+return tmp;
 }
 #elif defined(MINMAX_SCALING)
-normalize_mm(float *X, float *s_x){
+int *normalize_mm(int *X, int *s_x){
 int i=0;
 for (i=0; i<N_ORIG_FEATURE; i++) {
-    X[i] = s_x[i] * X[i];
+    tmp[i] = 100 * s_x[i] * X[i];
 }
+return tmp;
 }
 #endif
 
-float *PCA_transform(float *X){
+int *PCA_transform(int *X){
 int i=0, j=0;
 /*float debug[N_ORIG_FEATURE];
 for (j=0; j<N_ORIG_FEATURE; j++) {
@@ -34,12 +38,12 @@ for (i=0; i<N_FEATURE; i++) {
 return X_t;
 }
 
-float *preprocess(float *X)
+int *preprocess(int *X)
 {
     #ifdef STANDARD_SCALING
-        normalize_std(X, s_x, u_x);
+        int *tmp = normalize_std(X, s_x, u_x);
     #elif defined(MINMAX_SCALING)
-        normalize_mm(X, s_x);
+        int *tmp = normalize_mm(X, s_x);
     #endif
-    return PCA_transform(X);
+    return tmp;//PCA_transform(tmp);
 }

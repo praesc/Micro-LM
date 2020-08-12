@@ -15,7 +15,7 @@
 
 void svm_test_dataset(bool);
 float svm_regression(float []);
-int svm_classification(float []);
+int svm_classification(int []);
 //float *preprocess(float *);
 
 #endif

@@ -18,5 +18,5 @@
 
 void decisionTree_test_dataset(bool);
 float decisionTree_regression(float []);
-int decisionTree_classification(float []);
+int decisionTree_classification(int []);
 #endif

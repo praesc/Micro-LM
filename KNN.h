@@ -17,5 +17,5 @@
 
 void knn_test_dataset(bool);
 float knn_regression(float[]);
-int knn_classification(float[]);
+int knn_classification(int[]);
 #endif
